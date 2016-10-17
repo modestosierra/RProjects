@@ -24,7 +24,10 @@ The last step in the data preparation includes the removal of those columns that
 trainingData <- trainingData[, colSums(is.na(trainingData)) == 0]
 
 ```
-## Processing Data
+## Cross Validation
+We are taking the training data and we are splitting it into 60% for training and 40% for validation
+We let the test data aside
+We check the dimmensions of both the training and the validation set
 ```{r cache = TRUE, message=FALSE}
 #split into training and validation
 trainingPartition <- createDataPartition(y=trainingData$classe, p=0.6, list=FALSE)
@@ -33,16 +36,18 @@ myValidation <- trainingData[-trainingPartition, ]
 dim(myTraining); dim(myValidation);
 
 ```
-## Model : Random Forest
+## Model : Random Forest 
+We are using the Random Forest to build the model
+We calculate the estimated error
 ```{r cache = TRUE, message=FALSE}
 #model 1 RF
 modRF <- randomForest(classe ~. , data=myTraining)
 predRF <- predict(modRF, myValidation, type = "class")
 confusionMatrix(predRF , myValidation$classe)
-# The model looks good, so I'm not trying any other
 
 ```
 ## Processing Data
+We use the model against the testData and we obtain 
 ```{r cache = TRUE, message=FALSE}
 #model test
 testData = read.csv("pml-testing.csv")
