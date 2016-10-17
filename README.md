@@ -8,6 +8,7 @@ library(randomForest)
 ```
 
 ## Prepare Data
+The data proparation includes the removal of the columnos with NotANumbers, and not numeric or errors(DIV/0). I also remove from the dataset the data which contain non relevant info (the first columns)
 ```{r cache = TRUE, message=FALSE}
 #load data and have a look at it, remove the columns with NA
 trainingData = read.csv("pml-training.csv", na.strings=c("NA","#DIV/0!","")); 
@@ -17,6 +18,7 @@ trainingData <-trainingData[,-c(1:7)]
 
 ```
 ## Perform Data Cleaning
+The last step in the data preparation includes the removal of those columns that have 0 values for all the measurements, as they are likely to be errors
 ```{r cache = TRUE, message=FALSE}
 #do some cleaning
 trainingData <- trainingData[, colSums(is.na(trainingData)) == 0]
