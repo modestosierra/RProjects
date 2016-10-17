@@ -38,7 +38,7 @@ dim(myTraining); dim(myValidation);
 ```
 ## Model : Random Forest 
 We are using the Random Forest to build the model
-We calculate the estimated error
+We calculate the estimated error. We obtain accuracy = 0.9938
 ```{r cache = TRUE, message=FALSE}
 #model 1 RF
 modRF <- randomForest(classe ~. , data=myTraining)
@@ -47,7 +47,7 @@ confusionMatrix(predRF , myValidation$classe)
 
 ```
 ## Processing Data
-We use the model against the testData and we obtain 
+We use the model against the testData to predict the results
 ```{r cache = TRUE, message=FALSE}
 #model test
 testData = read.csv("pml-testing.csv")
